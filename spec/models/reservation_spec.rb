@@ -34,5 +34,16 @@ RSpec.describe Reservation, type: :model do
       res = Reservation.new(:user => user, :week => week, :time_start => 1, :time_end => 2)
       expect(res).not_to be_valid
     end
+
+    it 'requires a unique week_id, day_index and time_start combination' do
+      res = Reservation.create(:user => user, :week => week, :time_start => 1, 
+        :time_end => 2, :day_index => 0)
+      res2 = Reservation.new(:user => user, :week => week, :time_start => 1, 
+        :time_end => 2, :day_index => 0)
+
+      expect(res2).not_to be_valid
+      res2.time_start = 2
+      expect(res2).to be_valid
+    end
   end
 end

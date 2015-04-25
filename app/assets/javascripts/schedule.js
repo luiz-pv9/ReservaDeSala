@@ -14,6 +14,9 @@ $(function() {
         if(res.register == 'ok') {
           $this.html('Excluir');
           $this.parent().find('span').html('Reservado para ' + res.username);
+        } else if(res.register == 'fail') {
+          window.alert("Essa sala já foi reservada. TODO: mostrar uma mensagem mais amigável");
+          location.reload();
         } else if(res.unregister) {
           $this.html('Disponível');
           $this.parent().find('span').html('');
